@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Trắc Nghiệm 40 Câu Tổng Hợp: Present, Past, Future & Verb Patterns</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- ================= HEADER TRƯỜNG & ĐIỀU HƯỚNG ================= -->
+    <header class="quiz-header">
+      <div class="header-left">
+        <img src="logo.png" alt="Trường Cao Đẳng Công Nghệ Thủ Đức" class="school-logo">
+        <div class="header-titles">
+          <h1 class="exam-main-title">REVISION 1 - BÀI THI TRẮC NGHIỆM 40 CÂU</h1>
+          <p class="exam-sub-title">Present Tenses • Past Tenses • Future Tenses • Verb Patterns</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Đồng hồ đếm ngược -->
+        <div class="timer-badge" id="topTimer" title="Thời gian còn lại để làm bài">
+          <span class="timer-icon">⏱️</span>
+          <span id="timerText">45 : 00</span>
+        </div>
+
+        <div class="header-actions-row">
+          <div class="curr-q-badge" id="topQuestionIndicator">Câu 1 / 40</div>
+          
+          <button class="btn-flag" id="btnFlag" title="Đánh dấu câu hỏi cần xem lại sau">
+            <span class="flag-icon">🚩</span> <span id="flagBtnText">Đặt cờ</span>
+          </button>
+
+          <button class="btn-new-quiz" id="btnNewQuizHeader" title="Tạo ngay bộ đề 40 câu ngẫu nhiên mới và xáo trộn">
+            🎲 <span>Đề ngẫu nhiên mới</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Thanh tiến độ bài làm -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- ================= KHU VỰC THI CHÍNH ================= -->
+    <main class="quiz-main" id="quizMainSection">
+
+      <!-- PALETTE BÊN TRÁI TRÊN DESKTOP, CHUYỂN XUỐNG DƯỚI CÙNG TRÊN ĐIỆN THOẠI & IPAD -->
+      <aside class="quiz-palette-sidebar" id="paletteSidebar">
+        <div class="palette-box">
+          <div class="palette-header">
+            <div class="palette-title-text">
+              <span class="palette-icon">📋</span>
+              <span>KHUNG CÂU HỎI (40 CÂU)</span>
+            </div>
+            <div class="palette-stats" id="paletteStats">Đã làm: 0/40</div>
+          </div>
+
+          <!-- Chú giải trạng thái câu hỏi -->
+          <div class="palette-legend">
+            <div class="legend-item">
+              <span class="legend-dot dot-current"></span> Đang chọn
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot dot-answered"></span> Đã làm
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot dot-unanswered"></span> Chưa làm
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot dot-flagged"></span> Có gắn cờ
+            </div>
+          </div>
+
+          <!-- Lưới 40 nút chọn câu hỏi -->
+          <div class="question-grid" id="questionGrid">
+            <!-- 40 nút sẽ được sinh tự động bởi app.js -->
+          </div>
+
+          <!-- Nút nộp bài trên sidebar -->
+          <button class="btn-submit-sidebar" id="btnSubmitSidebar">
+            🚀 Kết thúc & Nộp bài thi
+          </button>
+        </div>
+      </aside>
+
+      <!-- KHUNG BÀI LÀM: CÂU HỎI VÀ CÁC ĐÁP ÁN CÙNG NẰM TRÊN 1 KHUNG DUY NHẤT -->
+      <section class="quiz-content-area" id="quizContentArea">
+        <div class="quiz-card-unified" id="quizUnifiedCard">
+          
+          <!-- Phần đầu khung câu hỏi: Thông tin số câu & nút đặt cờ -->
+          <div class="card-meta-header">
+            <div class="card-meta-left">
+              <span class="badge-question-num" id="cardQuestionNum">Câu 1 / 40</span>
+            </div>
+            <div class="card-meta-right">
+              <button class="btn-card-flag" id="btnCardFlag" title="Đánh dấu câu này để xem lại sau">
+                <span class="flag-icon">🚩</span> <span id="cardFlagText">Đánh dấu</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Đề bài câu hỏi (Nằm ngay trong cùng 1 khung với đáp án) -->
+          <div class="card-question-body">
+            <div class="question-text" id="questionText">
+              Đang tải dữ liệu 40 câu hỏi ngẫu nhiên...
+            </div>
+          </div>
+
+          <!-- Đường kẻ mảnh tinh tế ngăn cách nhẹ bên trong khung -->
+          <div class="card-divider"></div>
+
+          <!-- 4 Lựa chọn A, B, C, D (Cùng nằm trọn vẹn trong 1 khung câu hỏi) -->
+          <div class="card-options-container" id="optionsContainer">
+            <!-- Được render tự động từ app.js -->
+          </div>
+
+          <!-- Chân khung câu hỏi: Các nút chuyển câu Trước / Sau / Nộp bài -->
+          <div class="card-footer-nav">
+            <div class="nav-btn-group">
+              <button class="btn-nav btn-prev" id="btnPrev" disabled>
+                &larr; Câu trước
+              </button>
+              <button class="btn-nav btn-next" id="btnNext">
+                Câu tiếp theo &rarr;
+              </button>
+            </div>
+            <button class="btn-nav btn-submit-inline" id="btnSubmitInline">
+              Nộp bài thi 🚀
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- THANH ĐIỀU KHIỂN DƯỚI CÙNG (DOCK) CHO MÀN HÌNH RỘNG VÀ THAO TÁC TIỆN DỤNG -->
+    <footer class="quiz-footer" id="quizFooter">
+      <div class="footer-left">
+        <button class="btn-submit-main" id="btnSubmitBottom">Kết thúc và Nộp bài</button>
+        <div class="footer-meta">
+          <span class="footer-timer" id="bottomTimer">45 : 00</span>
+          <span class="footer-version">Phiên bản 40 câu ngẫu nhiên • Revision 1</span>
+        </div>
+      </div>
+
+      <div class="footer-center">
+        <button class="btn-footer-nav" id="btnPrevBottom" disabled>&larr; Câu trước</button>
+        <span class="status-counter" id="statusCounter">Đã làm: 0/40</span>
+        <button class="btn-footer-nav" id="btnNextBottom">Câu tiếp theo &rarr;</button>
+      </div>
+
+      <div class="footer-right">
+        <button class="btn-footer-random" id="btnNewQuizFooter" title="Xáo trộn và lấy 40 câu mới">
+          🎲 Đề ngẫu nhiên mới
+        </button>
+      </div>
+    </footer>
+
+    <!-- ================= MODAL XÁC NHẬN NỘP BÀI ================= -->
+    <div class="modal-overlay" id="submitModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-icon-badge warning">⚠️</div>
+          <h3 class="modal-title">Xác nhận nộp bài thi</h3>
+        </div>
+        
+        <div class="modal-body">
+          <p class="modal-desc">Bạn có chắc chắn muốn kết thúc bài thi và xem kết quả chấm điểm không?</p>
+          
+          <div class="modal-stats-summary">
+            <div class="summary-box-item done">
+              <div class="summary-num" id="modalAnsweredCount">0</div>
+              <div class="summary-label">Đã hoàn thành</div>
+            </div>
+            <div class="summary-box-item pending">
+              <div class="summary-num" id="modalUnansweredCount">40</div>
+              <div class="summary-label">Chưa trả lời</div>
+            </div>
+            <div class="summary-box-item flagged">
+              <div class="summary-num" id="modalFlaggedCount">0</div>
+              <div class="summary-label">Cần xem lại</div>
+            </div>
+          </div>
+
+          <div class="modal-warning-tip" id="modalWarningTip">
+            ⚠️ Bạn vẫn còn câu chưa trả lời. Hãy kiểm tra lại trước khi nộp bài!
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-modal btn-cancel" id="btnModalCancel">Tiếp tục làm bài</button>
+          <button class="btn-modal btn-confirm-submit" id="btnModalConfirm">Xác nhận nộp bài</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MÀN HÌNH KẾT QUẢ & XEM LẠI CHI TIẾT ================= -->
+    <section class="result-screen" id="resultScreen" style="display: none;">
+      <div class="result-container">
+
+        <!-- THẺ TỔNG KẾT ĐIỂM -->
+        <div class="result-summary-card">
+          <div class="result-badge-top" id="resultGradeBadge">KẾT QUẢ BÀI THI TRẮC NGHIỆM</div>
+          <h2 class="result-title">Bài Thi Tổng Hợp 40 Câu Ngẫu Nhiên</h2>
+          <div class="result-score-main" id="scoreDisplay">0 / 40</div>
+          <div class="result-score-10" id="scoreSub">Thang điểm 10: 0.0 Điểm</div>
+
+          <div class="stats-overview-grid">
+            <div class="stat-pill">
+              <div class="stat-pill-val" style="color: #10b981;" id="statCorrect">0</div>
+              <div class="stat-pill-lbl">Số câu đúng</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-pill-val" style="color: #ef4444;" id="statIncorrect">0</div>
+              <div class="stat-pill-lbl">Số câu sai</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-pill-val" style="color: #64748b;" id="statUnanswered">0</div>
+              <div class="stat-pill-lbl">Chưa làm</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-pill-val" style="color: #0284c7;" id="statTimeSpent">00:00</div>
+              <div class="stat-pill-lbl">Thời gian làm</div>
+            </div>
+          </div>
+
+          <!-- Thống kê theo 4 chủ đề kiến thức -->
+          <div class="topics-breakdown-box">
+            <h4 class="topics-breakdown-title">📊 Kết Quả Theo Từng Chủ Đề (10 câu mỗi chủ đề)</h4>
+            <div class="topics-breakdown-grid">
+              <div class="topic-row">
+                <span class="topic-name">1. Present Tenses (Hiện tại)</span>
+                <span class="topic-score" id="topicScorePresent">0 / 10</span>
+              </div>
+              <div class="topic-row">
+                <span class="topic-name">2. Past Tenses (Quá khứ)</span>
+                <span class="topic-score" id="topicScorePast">0 / 10</span>
+              </div>
+              <div class="topic-row">
+                <span class="topic-name">3. Future Tenses (Tương lai)</span>
+                <span class="topic-score" id="topicScoreFuture">0 / 10</span>
+              </div>
+              <div class="topic-row">
+                <span class="topic-name">4. Verb Patterns (Dạng động từ)</span>
+                <span class="topic-score" id="topicScoreVerb">0 / 10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Các nút thao tác sau khi có điểm -->
+          <div class="result-action-buttons">
+            <button class="btn-res btn-restart-new" id="btnRestartNew">
+              🎲 Tạo đề 40 câu ngẫu nhiên mới (Xáo trộn lại)
+            </button>
+            <button class="btn-res btn-restart-same" id="btnRestartSame">
+              🔄 Làm lại chính xác 40 câu này
+            </button>
+            <button class="btn-res btn-review-toggle" id="btnToggleReview">
+              📖 Xem giải thích chi tiết 40 câu
+            </button>
+          </div>
+        </div>
+
+        <!-- DANH SÁCH GIẢI THÍCH CHI TIẾT 40 CÂU -->
+        <div class="review-details-section" id="reviewDetailsSection" style="display: none;">
+          <div class="review-header-bar">
+            <h3>📖 Bảng Giải Thích Chi Tiết 40 Câu Của Đề Thi</h3>
+            <p>Bao gồm đáp án bạn đã chọn, đáp án chính xác, công thức ngữ pháp, dấu hiệu nhận biết và dịch nghĩa.</p>
+          </div>
+          
+          <div class="review-items-list" id="reviewItemsList">
+            <!-- Render tự động từ app.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- NẠP CÁC FILE KỊCH BẢN JAVASCRIPT -->
+  <script src="questions_bank.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
